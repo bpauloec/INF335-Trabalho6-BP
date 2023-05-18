@@ -1,5 +1,7 @@
 db = connect( 'mongodb://localhost/Loja' );
 
+db.dropDatabase()
+
 db.Produto.insertMany( [
   {
     idProduto: 1,

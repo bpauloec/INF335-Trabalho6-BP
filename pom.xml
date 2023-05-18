@@ -3,4 +3,11 @@
   <groupId>br.unicamp.ic.inf335.app</groupId>
   <artifactId>INF335-Trabalho6-BP</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.mongodb</groupId>
+  		<artifactId>mongodb-driver-sync</artifactId>
+  		<version>4.5.1</version>
+  	</dependency>
+  </dependencies>
 </project>

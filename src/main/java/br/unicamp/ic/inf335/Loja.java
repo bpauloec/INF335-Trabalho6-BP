@@ -1,6 +1,11 @@
 package br.unicamp.ic.inf335;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -58,11 +63,45 @@ public class Loja {
 		}
 	}
 	
+	/***
+	* Cria um BSON Document da Collation Produto
+	* @param idProduto
+	* @param nome
+	* @param descricao
+	* @param valor
+	* @param estado
+	*/
+	public void insereProduto(MongoDatabase db, int idProduto, String nome, String descricao, int valor, String estado){
+		Document produto = new Document("_id", new ObjectId());
+		
+		produto.append("idProduto", idProduto);
+		produto.append("nome", nome);
+		produto.append("descricao", descricao);
+		produto.append("valor", valor);
+		produto.append("estado", estado);
+		
+		MongoCollection<Document> produtos = db.getCollection("Produto");
+		
+		produtos.insertOne(produto);
+	}
+	
 	public static void main(String[] args) {
 		Loja loja = new Loja();
 		
 		MongoDatabase lojaDB = loja.conecta("mongodb://localhost", "Loja");
 		
+		//Lista de Produtos
+		System.out.println("Lista Produtos");
+		loja.listaProdutos(lojaDB);
+		System.out.println();
+		
+		//Insere novo produto
+		System.out.println("Inserindo no Produto (Prod7)");
+		loja.insereProduto(lojaDB, 7, "Prod7", "Bla Bla", 500, "Bla Bla");
+		System.out.println();
+		
+		//Lista os produtos da Loia
+		System.out.println("Lista com Novo Produto");
 		loja.listaProdutos(lojaDB);
 		System.out.println();
 	}
